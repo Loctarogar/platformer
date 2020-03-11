@@ -20,10 +20,11 @@ class Player(pygame.sprite.Sprite):
         self.acc = pygame.math.Vector2(0, 0)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            self.acc.x = -0.5
+            self.acc.x = -PLAYER_ACC
         if keys[pygame.K_RIGHT]:
-            self.acc.x = 0.5
+            self.acc.x = PLAYER_ACC
             
+        self.acc += self.vel * PLAYER_FRICTION
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         

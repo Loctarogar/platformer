@@ -4,6 +4,13 @@ WIDTH = 480
 HEIGHT = 600
 FPS = 60
 
+# player properties
+
+# acceleration
+PLAYER_ACC = 0.5
+# friction
+PLAYER_FRICTION = -0.12
+
 # define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
