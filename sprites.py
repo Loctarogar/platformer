@@ -24,8 +24,15 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_RIGHT]:
             self.acc.x = PLAYER_ACC
             
+        # apply friction
         self.acc += self.vel * PLAYER_FRICTION
+        # equation of motion
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
+        # wrap arount the sides of the screen
+        if self.pos.x > WIDTH:
+            self.pos.x = 0
+        if self.pos.x < 0:
+            self.pos.x = WIDTH
         
         self.rect.center = self.pos
