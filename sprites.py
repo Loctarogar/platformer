@@ -8,18 +8,23 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((30, 40))
         self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
-        self.rect.center = (WIDTG/2, HEIGHT/2)
-        # velocity x
-        self.vx = 0
-        # velocity y
-        self.vy = 0
+        self.rect.center = (WIDTH/2, HEIGHT/2)
+        # positional vector
+        self.pos = pygame.math.Vector2(WIDTH/2, HEIGHT/2)
+        # velocity vector
+        self.vel = pygame.math.Vector2(0, 0)
+        # acceleration vector
+        self.acc = pygame.math.Vector2(0, 0)
         
     def update(self):
-        self.vx = 0
+        self.acc = pygame.math.Vector2(0, 0)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            self.vx = -5
+            self.acc.x = -0.5
         if keys[pygame.K_RIGHT]:
-            self.vx = 5
-        self.rect.x += self.vx
-        self.rect.y += self.vy
+            self.acc.x = 0.5
+            
+        self.vel += self.acc
+        self.pos += self.vel + 0.5 * self.acc
+        
+        self.rect.center = self.pos
