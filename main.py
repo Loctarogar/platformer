@@ -2,6 +2,7 @@
 import pygame
 import random
 from settings import *
+from sprites import *
 
 class Game:
     def __init__(self):
@@ -16,6 +17,8 @@ class Game:
     # start/reset game
     def new(self):
         self.all_sprites = pygame.sprite.Group()
+        self.player = Player()
+        self.all_sprites.add(self.player)
         self.run()
     
     # game loop
