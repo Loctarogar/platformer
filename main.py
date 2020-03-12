@@ -17,8 +17,12 @@ class Game:
     # start/reset game
     def new(self):
         self.all_sprites = pygame.sprite.Group()
+        self.platforms = pygame.sprite.Group()
         self.player = Player()
         self.all_sprites.add(self.player)
+        p1 = Platform(0, HEIGHT - 40, WIDTH, 40)
+        self.all_sprites.add(p1)
+        self.platforms.add(p1)
         self.run()
     
     # game loop
