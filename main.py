@@ -23,6 +23,9 @@ class Game:
         p1 = Platform(0, HEIGHT - 40, WIDTH, 40)
         self.all_sprites.add(p1)
         self.platforms.add(p1)
+        p2 = Platform(WIDTH / 2 - 50, HEIGHT * 3/4, 100, 20)
+        self.all_sprites.add(p2)
+        self.platforms.add(p2)
         self.run()
     
     # game loop
@@ -39,6 +42,11 @@ class Game:
     def update(self):
         # Update
         self.all_sprites.update()
+        hits = pygame.sprite.spritecollide(self.player, self.platforms, False)
+        if hits:
+            self.player.pos.y = hits[0].rect.top
+            self.player.rect.midbottom = self.player.pos
+            self.player.vel.y = 0
     
     # game loop events
     def events(self):

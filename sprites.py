@@ -36,7 +36,7 @@ class Player(pygame.sprite.Sprite):
         if self.pos.x < 0:
             self.pos.x = WIDTH
         
-        self.rect.center = self.pos
+        self.rect.midbottom = self.pos
         
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
