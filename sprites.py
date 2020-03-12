@@ -14,18 +14,19 @@ class Player(pygame.sprite.Sprite):
         # velocity vector
         self.vel = pygame.math.Vector2(0, 0)
         # acceleration vector
+        # pygame.math.Vector2(x_vector, y_vector)
         self.acc = pygame.math.Vector2(0, 0)
-        
+
     def update(self):
-        self.acc = pygame.math.Vector2(0, 0)
+        self.acc = pygame.math.Vector2(0, 0.5)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             self.acc.x = -PLAYER_ACC
         if keys[pygame.K_RIGHT]:
             self.acc.x = PLAYER_ACC
-            
+
         # apply friction
-        self.acc += self.vel * PLAYER_FRICTION
+        self.acc.x += self.vel.x * PLAYER_FRICTION
         # equation of motion
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
