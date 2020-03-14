@@ -43,11 +43,13 @@ class Game:
     def update(self):
         # Update
         self.all_sprites.update()
-        hits = pygame.sprite.spritecollide(self.player, self.platforms, False)
-        if hits:
-            self.player.pos.y = hits[0].rect.top
-            self.player.rect.midbottom = self.player.pos
-            self.player.vel.y = 0
+        # check if player hits a platform - only if falling
+        if self.player.vel.y > 0:            
+            hits = pygame.sprite.spritecollide(self.player, self.platforms, False)
+            if hits:
+                self.player.pos.y = hits[0].rect.top
+                self.player.rect.midbottom = self.player.pos
+                self.player.vel.y = 0
     
     # game loop events
     def events(self):
