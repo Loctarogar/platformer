@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.acc = pygame.math.Vector2(0, 0)
 
     def update(self):
-        self.acc = pygame.math.Vector2(0, 0.5)
+        self.acc = pygame.math.Vector2(0, PLAYER_GRAVITY)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             self.acc.x = -PLAYER_ACC

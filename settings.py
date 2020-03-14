@@ -8,8 +8,8 @@ FPS = 60
 
 # acceleration
 PLAYER_ACC = 0.5
-# friction
 PLAYER_FRICTION = -0.12
+PLAYER_GRAVITY = 0.8
 
 # define colors
 WHITE = (255, 255, 255)
