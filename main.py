@@ -18,7 +18,8 @@ class Game:
     def new(self):
         self.all_sprites = pygame.sprite.Group()
         self.platforms = pygame.sprite.Group()
-        self.player = Player()
+        # send to player reference to Game object
+        self.player = Player(self)
         self.all_sprites.add(self.player)
         p1 = Platform(0, HEIGHT - 40, WIDTH, 40)
         self.all_sprites.add(p1)
@@ -52,11 +53,14 @@ class Game:
     def events(self):
         # Process input (events)
         for event in pygame.event.get():
-            # check for closing window
+            # check for event
             if event.type == pygame.QUIT:
                 if self.playing:
                     self.playing = False
                 self.running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.player.jump()
     
     # game loop - draw
     def draw(self):

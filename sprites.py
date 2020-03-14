@@ -3,8 +3,9 @@ import pygame
 from settings import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, game):
         pygame.sprite.Sprite.__init__(self)
+        self.game = game
         self.image = pygame.Surface((30, 40))
         self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
@@ -37,6 +38,16 @@ class Player(pygame.sprite.Sprite):
             self.pos.x = WIDTH
         
         self.rect.midbottom = self.pos
+        
+    def jump(self):
+        # jump only if standing on a platform
+        # add + 1 pixel to check collision
+        self.rect.y += 1
+        hits = pygame.sprite.spritecollide(self, self.game.platforms, False)
+        # return player back
+        self.rect.y -= 1
+        if hits:
+            self.vel.y = -20
         
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
