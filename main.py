@@ -49,6 +49,12 @@ class Game:
                 self.player.pos.y = hits[0].rect.top
                 self.player.rect.midbottom = self.player.pos
                 self.player.vel.y = 0
+        # if player reaches 1/4 of the screen
+        if self.player.rect.top <= HEIGHT / 4:
+            self.player.pos.y += abs(self.player.vel.y)
+            for platform in self.platforms:
+                platform.rect.y += abs(self.player.vel.y)
+                
     
     # game loop events
     def events(self):
