@@ -56,7 +56,15 @@ class Game:
                 platform.rect.y += abs(self.player.vel.y)
                 if platform.rect.top >= HEIGHT:
                     platform.kill()
-
+                    
+        # spawn new platforms
+        while len(self.platforms) < 6:
+            width = random.randrange(50, 100)
+            platform = Platform(random.randrange(0, WIDTH-width),
+                                random.randrange(-75, -30),
+                                width, 20)
+            self.platforms.add(platform)
+            self.all_sprites.add(platform)
     # game loop events
     def events(self):
         # Process input (events)
