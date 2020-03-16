@@ -54,8 +54,9 @@ class Game:
             self.player.pos.y += abs(self.player.vel.y)
             for platform in self.platforms:
                 platform.rect.y += abs(self.player.vel.y)
-                
-    
+                if platform.rect.top >= HEIGHT:
+                    platform.kill()
+
     # game loop events
     def events(self):
         # Process input (events)
