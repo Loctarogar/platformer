@@ -47,7 +47,7 @@ class Player(pygame.sprite.Sprite):
         # return player back
         self.rect.y -= 1
         if hits:
-            self.vel.y = -20
+            self.vel.y = -PLAYER_JUMP
         
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):

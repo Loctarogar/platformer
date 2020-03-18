@@ -65,6 +65,16 @@ class Game:
                                 width, 20)
             self.platforms.add(platform)
             self.all_sprites.add(platform)
+            
+        # Die!
+        if self.player.rect.bottom > HEIGHT:
+            for sprite in self.all_sprites:
+                sprite.rect.y -= max(self.player.vel.y, 10)
+                if sprite.rect.bottom < 0:
+                    sprite.kill()
+        if len(self.platforms) == 0:
+            self.playing = False
+
     # game loop events
     def events(self):
         # Process input (events)

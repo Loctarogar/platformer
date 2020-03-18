@@ -5,11 +5,10 @@ HEIGHT = 600
 FPS = 60
 
 # player properties
-
-# acceleration
 PLAYER_ACC = 0.5
 PLAYER_FRICTION = -0.12
 PLAYER_GRAVITY = 0.8
+PLAYER_JUMP = 20
 
 # Starting platforms
 PLATFORM_LIST = [(0, HEIGHT - 40, WIDTH, 40),
