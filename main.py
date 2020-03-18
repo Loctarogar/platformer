@@ -13,9 +13,11 @@ class Game:
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(TITLE)
         self.clock = pygame.time.Clock()
+        self.font_name = pygame.font.match_font(FONT_NAME)
     
     # start/reset game
     def new(self):
+        self.score = 0
         self.all_sprites = pygame.sprite.Group()
         self.platforms = pygame.sprite.Group()
         # send to player reference to Game object
@@ -56,6 +58,8 @@ class Game:
                 platform.rect.y += abs(self.player.vel.y)
                 if platform.rect.top >= HEIGHT:
                     platform.kill()
+                    # add scores
+                    self.score += 10
                     
         # spawn new platforms
         while len(self.platforms) < 6:
@@ -93,6 +97,8 @@ class Game:
         # Draw / render
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
+        self.draw_text(str(self.score), 22, WHITE, WIDTH / 2, 16)
+        
         # *after* drawing everything, flip the display
         pygame.display.flip()
     
@@ -101,6 +107,13 @@ class Game:
     
     def show_game_over_screen(self):
         pass
+    
+    def draw_text(self, text, size, color, x, y):
+        font = pygame.font.Font(self.font_name, size)
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (x, y)
+        self.screen.blit(text_surface, text_rect)
 
 g = Game()
 
