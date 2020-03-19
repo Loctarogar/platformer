@@ -95,19 +95,42 @@ class Game:
     # game loop - draw
     def draw(self):
         # Draw / render
-        self.screen.fill(BLACK)
+        self.screen.fill(BGCOLOR)
         self.all_sprites.draw(self.screen)
         self.draw_text(str(self.score), 22, WHITE, WIDTH / 2, 16)
         
         # *after* drawing everything, flip the display
         pygame.display.flip()
-    
+
     def show_start_screen(self):
-        pass
-    
+        self.screen.fill(BGCOLOR)
+        self.draw_text(TITLE, 48, WHITE,WIDTH/2, HEIGHT/4)
+        self.draw_text("Arrows to move", 22, WHITE, WIDTH/2, HEIGHT/2)
+        self.draw_text("Press a key", 22, WHITE, WIDTH/2, HEIGHT *3/4)
+        pygame.display.flip()
+        self.wait_for_key()
+
     def show_game_over_screen(self):
-        pass
+        if not self.running:
+            return
+        self.screen.fill(BGCOLOR)
+        self.draw_text('Game Over', 48, WHITE,WIDTH/2, HEIGHT/4)
+        self.draw_text("Score: " + str(self.score ), 22, WHITE, WIDTH/2, HEIGHT/2)
+        self.draw_text("Press a key", 22, WHITE, WIDTH/2, HEIGHT *3/4)
+        pygame.display.flip()
+        self.wait_for_key()
     
+    def wait_for_key(self):
+        waiting = True
+        while waiting:
+            self.clock.tick(FPS)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    waiting = False
+                    self.running = False
+                if event.type == pygame.KEYUP:
+                    waiting = False
+
     def draw_text(self, text, size, color, x, y):
         font = pygame.font.Font(self.font_name, size)
         text_surface = font.render(text, True, color)
@@ -118,6 +141,7 @@ class Game:
 g = Game()
 
 while g.running:
+    g.show_start_screen()
     g.new()
     g.show_game_over_screen()
     
