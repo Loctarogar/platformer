@@ -1,8 +1,10 @@
 # Platform game
+
 import pygame
 import random
 from settings import *
 from sprites import *
+from os import path
 
 class Game:
     def __init__(self):
@@ -14,6 +16,16 @@ class Game:
         pygame.display.set_caption(TITLE)
         self.clock = pygame.time.Clock()
         self.font_name = pygame.font.match_font(FONT_NAME)
+        self.load_data()
+        
+    def load_data(self):
+        # load score
+        self.dir = path.dirname(__file__)
+        with open(path.join(self.dir, HS_FILE), 'w') as f:
+            try:
+                self.highscore = int(f.read())
+            except:
+                self.highscore = 0
     
     # start/reset game
     def new(self):
@@ -107,6 +119,7 @@ class Game:
         self.draw_text(TITLE, 48, WHITE,WIDTH/2, HEIGHT/4)
         self.draw_text("Arrows to move", 22, WHITE, WIDTH/2, HEIGHT/2)
         self.draw_text("Press a key", 22, WHITE, WIDTH/2, HEIGHT *3/4)
+        self.draw_text("Score " + str(self.highscore), 22, WHITE, WIDTH/2, 15)
         pygame.display.flip()
         self.wait_for_key()
 
@@ -117,6 +130,11 @@ class Game:
         self.draw_text('Game Over', 48, WHITE,WIDTH/2, HEIGHT/4)
         self.draw_text("Score: " + str(self.score ), 22, WHITE, WIDTH/2, HEIGHT/2)
         self.draw_text("Press a key", 22, WHITE, WIDTH/2, HEIGHT *3/4)
+        if self.score > self.highscore:
+            self.highscore = self.score
+            self.draw_text("New high score" + str(self.highscore), 22, WHITE, WIDTH / 2, HEIGHT / 2 + 40)
+            with open(path.join(self.dir, HS_FILE), 'w') as f:
+                f.write(str(self.score))
         pygame.display.flip()
         self.wait_for_key()
     
